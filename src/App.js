@@ -1,3 +1,5 @@
+// Assignment 3 - Flappy Bird Game
+// Feature 1: Basic game structure
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
@@ -11,6 +13,12 @@ function App() {
   
   const obstacleIdCounter = useRef(0);
   const passedObstacles = useRef(new Set());
+
+  const [clouds, setClouds] = useState([
+    { id: 1, x: 100, y: 80, size: 60 },
+    { id: 2, x: 400, y: 120, size: 80 },
+    { id: 3, x: 650, y: 60, size: 70 }
+  ]);
 
   const GAME_WIDTH = 800;
   const GAME_HEIGHT = 500;
