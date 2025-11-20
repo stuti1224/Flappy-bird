@@ -34,10 +34,18 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+/* Change 8: High score style */
+.high-score {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #FFD700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-top: 5px;
+}
+
 .game-box {
   width: 800px;
   height: 500px;
-  background: linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 100%);
   border: 4px solid #8B4513;
   border-radius: 10px;
   position: relative;
@@ -45,6 +53,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* Change 1: Cloud styles */
 .cloud {
   position: absolute;
   background: white;
@@ -75,15 +84,19 @@
   right: 10%;
 }
 
+/* Change 2 & 5: Blue bird with shadow */
 .player {
   position: absolute;
   width: 40px;
   height: 40px;
-  background-color: #4169E1; 
-  border: 4px solid #1E90FF; 
+  background-color: #4169E1;
+  border: 4px solid #1E90FF;
   border-radius: 50%;
   transition: transform 0.1s;
   z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 
+              0 2px 4px rgba(0, 0, 0, 0.3);
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.3));
 }
 
 .eye {
@@ -96,21 +109,24 @@
   border-radius: 50%;
 }
 
+/* Change 2: Updated beak color */
 .beak {
   position: absolute;
   top: 20px;
   left: 4px;
   width: 16px;
   height: 8px;
-  background-color: #FF6347; 
+  background-color: #FF6347;
   border-radius: 2px;
 }
 
+/* Change 4: Gradient pipes */
 .obstacle {
   position: absolute;
-  background-color: #228B22;
+  background: linear-gradient(to right, #1a6b1a, #228B22, #1a6b1a);
   border: 4px solid #006400;
   z-index: 5;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .obstacle-top {
@@ -123,13 +139,15 @@
   border-top-right-radius: 8px;
 }
 
+/* Change 4: Gradient pipe caps */
 .pipe-cap {
   position: absolute;
   left: -4px;
   right: -4px;
   height: 32px;
-  background-color: #1a6b1a;
+  background: linear-gradient(to bottom, #1a6b1a, #0d4d0d);
   border: 4px solid #004d00;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .obstacle-top .pipe-cap {
@@ -140,6 +158,35 @@
 .obstacle-bottom .pipe-cap {
   top: 0;
   border-bottom: 4px solid #004d00;
+}
+
+/* Change 3: Ground styles */
+.ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: repeating-linear-gradient(
+    90deg,
+    #8B4513 0px,
+    #8B4513 50px,
+    #A0522D 50px,
+    #A0522D 100px
+  );
+  border-top: 4px solid #654321;
+  z-index: 15;
+}
+
+.ground::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: #228B22;
+  border-bottom: 3px solid #006400;
 }
 
 .overlay {
@@ -180,6 +227,20 @@
   font-size: 1.5rem;
   margin-bottom: 10px;
   color: #333;
+}
+
+/* Change 8: New record message */
+.new-record {
+  font-size: 1.2rem;
+  color: #FFD700;
+  font-weight: bold;
+  margin-top: 10px;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
 .start-button {
