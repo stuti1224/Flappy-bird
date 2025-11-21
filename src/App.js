@@ -267,7 +267,7 @@ function App() {
           />
         ))}
 
-        {gameStarted && (
+{gameStarted && (
           <div
             className="player"
             style={{
@@ -279,15 +279,15 @@ function App() {
             <div className="eye"></div>
             <div className="beak"></div>
           </div>
-
-          {showJumpEffect && gameStarted && (
+        )}
+{showJumpEffect && gameStarted && (
           <div
             className="jump-puff"
             style={{
               left: playerPos.x + 20 + 'px',
               top: playerPos.y + 40 + 'px'
-          }}
-        />
+            }}
+          />
         )}
 
         {obstacles.map(obstacle => (
@@ -301,6 +301,22 @@ function App() {
                 top: 0
               }}
             >
+              <div className="pipe-cap"></div>
+            </div>
+            
+            <div
+              className="obstacle obstacle-bottom"
+              style={{
+                width: OBSTACLE_WIDTH + 'px',
+                height: (GAME_HEIGHT - obstacle.gapY - GAP_SIZE) + 'px',
+                left: obstacle.x + 'px',
+                top: (obstacle.gapY + GAP_SIZE) + 'px'
+              }}
+            >
+              <div className="pipe-cap"></div>
+            </div>
+          </React.Fragment>
+        ))}
               <div className="pipe-cap"></div>
             </div>
             
