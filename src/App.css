@@ -286,3 +286,24 @@
 .footer p {
   margin: 5px 0;
 }
+
+.jump-puff {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  z-index: 9;
+  animation: puff 0.2s ease-out;
+}
+
+@keyframes puff {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}

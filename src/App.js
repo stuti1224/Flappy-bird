@@ -41,6 +41,7 @@ function App() {
   // Change 8: High score
   const [highScore, setHighScore] = useState(() => {
     const saved = localStorage.getItem('flappyBirdHighScore');
+    const [showJumpEffect, setShowJumpEffect] = useState(false);
     return saved ? parseInt(saved) : 0;
   });
   
@@ -75,6 +76,8 @@ function App() {
         case 'Space':
         case 'ArrowUp':
           setVelocity(JUMP_STRENGTH);
+          setShowJumpEffect(true);
+          setTimeout(() => setShowJumpEffect(false), 200);
           break;
         case 'ArrowLeft':
           setPlayerPos(prev => ({
@@ -276,6 +279,15 @@ function App() {
             <div className="eye"></div>
             <div className="beak"></div>
           </div>
+
+          {showJumpEffect && gameStarted && (
+          <div
+            className="jump-puff"
+            style={{
+              left: playerPos.x + 20 + 'px',
+              top: playerPos.y + 40 + 'px'
+          }}
+        />
         )}
 
         {obstacles.map(obstacle => (
