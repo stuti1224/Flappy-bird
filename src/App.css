@@ -6,176 +6,276 @@
 
 .app-container {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #87CEEB, #B0E0E6);
+  background: linear-gradient(180deg, #2d1b69 0%, #1a0f3d 50%, #0d0620 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Courier New', monospace;
+  position: relative;
+}
+
+/* Retro grid lines */
+.app-container::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(0deg, transparent 24%, rgba(255, 0, 255, 0.1) 25%, rgba(255, 0, 255, 0.1) 26%, transparent 27%, transparent 74%, rgba(255, 0, 255, 0.1) 75%, rgba(255, 0, 255, 0.1) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, rgba(0, 255, 255, 0.1) 25%, rgba(0, 255, 255, 0.1) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.1) 75%, rgba(0, 255, 255, 0.1) 76%, transparent 77%, transparent);
+  background-size: 50px 50px;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .header {
   margin-bottom: 20px;
   text-align: center;
+  z-index: 1;
 }
 
 .header h1 {
-  font-size: 3rem;
-  color: white;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  font-size: 3.5rem;
+  color: #ff00ff;
+  text-shadow: 
+    0 0 10px #ff00ff,
+    0 0 20px #ff00ff,
+    0 0 30px #ff00ff,
+    4px 4px 0px #00ffff;
   margin-bottom: 10px;
+  font-weight: bold;
+  letter-spacing: 5px;
+  text-transform: uppercase;
 }
 
 .score {
   font-size: 2rem;
   font-weight: bold;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: #00ffff;
+  text-shadow: 
+    0 0 10px #00ffff,
+    0 0 20px #00ffff,
+    3px 3px 0px #ff00ff;
+  letter-spacing: 2px;
 }
 
-/* Change 8: High score style */
 .high-score {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #FFD700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: #ffff00;
+  text-shadow: 
+    0 0 10px #ffff00,
+    2px 2px 0px #ff00ff;
   margin-top: 5px;
+  letter-spacing: 2px;
 }
 
 .game-box {
   width: 800px;
   height: 500px;
-  border: 4px solid #8B4513;
-  border-radius: 10px;
+  border: 5px solid #ff00ff;
+  border-radius: 0;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 
+    0 0 20px #ff00ff,
+    inset 0 0 20px rgba(255, 0, 255, 0.2),
+    0 0 40px #00ffff;
+  background: linear-gradient(180deg, #1a0f3d 0%, #0d0620 100%);
 }
 
-/* Change 1: Cloud styles */
+/* Retro scanlines effect */
+.game-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.2) 2px,
+    rgba(0, 0, 0, 0.2) 4px
+  );
+  pointer-events: none;
+  z-index: 100;
+  animation: scanline 8s linear infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(50px); }
+}
+
+/* Retro geometric clouds - now triangles */
 .cloud {
   position: absolute;
-  background: white;
-  border-radius: 100px;
-  opacity: 0.7;
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 50px solid rgba(255, 0, 255, 0.3);
   z-index: 1;
+  filter: drop-shadow(0 0 10px #ff00ff);
 }
 
 .cloud::before,
 .cloud::after {
   content: '';
   position: absolute;
-  background: white;
-  border-radius: 100px;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 35px solid rgba(0, 255, 255, 0.3);
 }
 
 .cloud::before {
-  width: 50%;
-  height: 80%;
-  top: -40%;
-  left: 10%;
+  top: 10px;
+  left: -40px;
 }
 
 .cloud::after {
-  width: 60%;
-  height: 70%;
-  top: -30%;
-  right: 10%;
+  top: 10px;
+  left: 0;
 }
 
-/* Change 2 & 5: Blue bird with shadow */
+/* Retro player - geometric square with glow */
 .player {
   position: absolute;
   width: 40px;
   height: 40px;
-  background-color: #4169E1;
-  border: 4px solid #1E90FF;
-  border-radius: 50%;
+  background: linear-gradient(135deg, #ff00ff 0%, #ff0080 50%, #ff00ff 100%);
+  border: 3px solid #00ffff;
+  border-radius: 0;
   transition: transform 0.1s;
   z-index: 10;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 
-              0 2px 4px rgba(0, 0, 0, 0.3);
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.3));
+  box-shadow: 
+    0 0 20px #ff00ff,
+    0 0 40px #ff00ff,
+    inset 0 0 10px rgba(255, 255, 255, 0.5);
+  position: relative;
 }
 
+/* Retro eye - just a glowing square */
 .eye {
   position: absolute;
-  top: 8px;
-  left: 8px;
-  width: 12px;
-  height: 12px;
-  background-color: black;
-  border-radius: 50%;
+  top: 10px;
+  left: 10px;
+  width: 8px;
+  height: 8px;
+  background-color: #00ffff;
+  border-radius: 0;
+  box-shadow: 0 0 10px #00ffff;
 }
 
-/* Change 2: Updated beak color */
+/* Retro beak - triangle */
 .beak {
   position: absolute;
-  top: 20px;
-  left: 4px;
-  width: 16px;
-  height: 8px;
-  background-color: #FF6347;
-  border-radius: 2px;
+  top: 18px;
+  left: -8px;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 12px solid #ffff00;
+  box-shadow: 0 0 10px #ffff00;
 }
 
-/* Change 4: Gradient pipes */
+/* Retro obstacles - neon rectangles with patterns */
 .obstacle {
   position: absolute;
-  background: linear-gradient(to right, #1a6b1a, #228B22, #1a6b1a);
-  border: 4px solid #006400;
+  background: linear-gradient(90deg, 
+    #00ffff 0%, 
+    #0080ff 25%, 
+    #ff00ff 50%, 
+    #0080ff 75%, 
+    #00ffff 100%
+  );
+  border: 3px solid #ffff00;
   z-index: 5;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 
+    0 0 20px #00ffff,
+    inset 0 0 20px rgba(255, 255, 255, 0.3);
+  position: relative;
+}
+
+/* Add retro pattern to obstacles */
+.obstacle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 5px,
+    rgba(255, 255, 0, 0.2) 5px,
+    rgba(255, 255, 0, 0.2) 10px
+  );
 }
 
 .obstacle-top {
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .obstacle-bottom {
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
-/* Change 4: Gradient pipe caps */
+/* Retro pipe caps - glowing blocks */
 .pipe-cap {
   position: absolute;
-  left: -4px;
-  right: -4px;
-  height: 32px;
-  background: linear-gradient(to bottom, #1a6b1a, #0d4d0d);
-  border: 4px solid #004d00;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  left: -5px;
+  right: -5px;
+  height: 40px;
+  background: linear-gradient(180deg, #ff00ff 0%, #ff0080 50%, #ff00ff 100%);
+  border: 3px solid #00ffff;
+  box-shadow: 
+    0 0 20px #ff00ff,
+    inset 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .obstacle-top .pipe-cap {
   bottom: 0;
-  border-top: 4px solid #004d00;
+  border-top: 3px solid #00ffff;
 }
 
 .obstacle-bottom .pipe-cap {
   top: 0;
-  border-bottom: 4px solid #004d00;
+  border-bottom: 3px solid #00ffff;
 }
 
-/* Change 3: Ground styles */
+/* Retro ground - pixel pattern */
 .ground {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   height: 80px;
-  background: repeating-linear-gradient(
-    90deg,
-    #8B4513 0px,
-    #8B4513 50px,
-    #A0522D 50px,
-    #A0522D 100px
-  );
-  border-top: 4px solid #654321;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      #ff00ff 0px,
+      #ff00ff 20px,
+      #00ffff 20px,
+      #00ffff 40px,
+      #ffff00 40px,
+      #ffff00 60px,
+      #ff0080 60px,
+      #ff0080 80px
+    );
+  border-top: 5px solid #00ffff;
   z-index: 15;
+  box-shadow: 0 -5px 20px #ff00ff;
 }
 
 .ground::before {
@@ -184,9 +284,15 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 20px;
-  background: #228B22;
-  border-bottom: 3px solid #006400;
+  height: 10px;
+  background: linear-gradient(90deg, 
+    #ff00ff 0%, 
+    #00ffff 25%, 
+    #ffff00 50%, 
+    #00ffff 75%, 
+    #ff00ff 100%
+  );
+  box-shadow: 0 0 10px #00ffff;
 }
 
 .overlay {
@@ -195,7 +301,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(13, 6, 32, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -203,39 +309,58 @@
 }
 
 .menu {
-  background-color: white;
+  background: linear-gradient(135deg, #1a0f3d 0%, #2d1b69 100%);
   padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  border-radius: 0;
+  border: 5px solid #ff00ff;
+  box-shadow: 
+    0 0 30px #ff00ff,
+    0 0 50px #00ffff,
+    inset 0 0 30px rgba(255, 0, 255, 0.2);
   text-align: center;
   max-width: 400px;
 }
 
 .game-over {
   font-size: 2.5rem;
-  color: #DC143C;
+  color: #ff0080;
   margin-bottom: 20px;
+  text-shadow: 
+    0 0 10px #ff0080,
+    0 0 20px #ff0080,
+    3px 3px 0 #00ffff;
+  letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
 .ready {
   font-size: 2.5rem;
-  color: #228B22;
+  color: #00ffff;
   margin-bottom: 20px;
+  text-shadow: 
+    0 0 10px #00ffff,
+    0 0 20px #00ffff,
+    3px 3px 0 #ff00ff;
+  letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
 .final-score {
   font-size: 1.5rem;
   margin-bottom: 10px;
-  color: #333;
+  color: #ffff00;
+  text-shadow: 0 0 10px #ffff00;
+  letter-spacing: 2px;
 }
 
-/* Change 8: New record message */
 .new-record {
   font-size: 1.2rem;
-  color: #FFD700;
+  color: #ff00ff;
   font-weight: bold;
   margin-top: 10px;
-  animation: pulse 1s infinite;
+  text-shadow: 0 0 10px #ff00ff;
+  animation: pulse 1s infinite, neonPulse 2s infinite;
+  letter-spacing: 2px;
 }
 
 @keyframes pulse {
@@ -243,33 +368,55 @@
   50% { transform: scale(1.1); }
 }
 
+@keyframes neonPulse {
+  0%, 100% { 
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; 
+  }
+  50% { 
+    text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff, 0 0 60px #ff00ff; 
+  }
+}
+
 .start-button {
   margin-top: 20px;
   padding: 15px 30px;
   font-size: 1.2rem;
   font-weight: bold;
-  color: white;
-  background-color: #4169E1;
-  border: none;
-  border-radius: 8px;
+  color: #000;
+  background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+  border: 3px solid #ffff00;
+  border-radius: 0;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 
+    0 0 20px #00ffff,
+    0 0 30px #ff00ff;
 }
 
 .start-button:hover {
-  background-color: #1E90FF;
+  background: linear-gradient(135deg, #ff00ff 0%, #00ffff 100%);
+  box-shadow: 
+    0 0 30px #ff00ff,
+    0 0 50px #00ffff;
+  transform: scale(1.05);
 }
 
 .controls {
   margin-top: 30px;
   text-align: left;
   font-size: 0.9rem;
-  color: #555;
+  color: #00ffff;
+  text-shadow: 0 0 5px #00ffff;
+  letter-spacing: 1px;
 }
 
 .controls-title {
   font-weight: bold;
   margin-bottom: 10px;
+  color: #ff00ff;
+  text-shadow: 0 0 5px #ff00ff;
 }
 
 .controls p {
@@ -279,44 +426,61 @@
 .footer {
   margin-top: 20px;
   text-align: center;
-  color: white;
+  color: #00ffff;
   font-size: 0.9rem;
+  text-shadow: 0 0 10px #00ffff;
+  z-index: 1;
+  letter-spacing: 2px;
 }
 
 .footer p {
   margin: 5px 0;
 }
 
+/* Retro jump effect - square particles */
 .jump-puff {
   position: absolute;
   width: 30px;
   height: 30px;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
+  background: rgba(255, 0, 255, 0.8);
+  border: 2px solid #00ffff;
+  border-radius: 0;
   z-index: 9;
-  animation: puff 0.2s ease-out;
+  animation: puffRetro 0.3s ease-out;
+  box-shadow: 0 0 20px #ff00ff;
 }
 
-@keyframes puff {
+@keyframes puffRetro {
   0% {
-    transform: scale(0.5);
+    transform: scale(0.5) rotate(0deg);
     opacity: 1;
   }
   100% {
-    transform: scale(1.5);
+    transform: scale(2) rotate(90deg);
     opacity: 0;
   }
 }
 
+/* Retro medal display */
 .medal-display {
   margin-top: 20px;
   padding: 15px;
-  background: rgba(255, 215, 0, 0.1);
-  border-radius: 10px;
+  background: rgba(255, 0, 255, 0.2);
+  border: 3px solid #00ffff;
+  border-radius: 0;
+  box-shadow: 
+    0 0 20px #ff00ff,
+    inset 0 0 20px rgba(0, 255, 255, 0.2);
 }
 
 .medal-emoji {
   font-size: 3rem;
   display: block;
   margin-bottom: 10px;
+  filter: drop-shadow(0 0 10px #ffff00);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
