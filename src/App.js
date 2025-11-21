@@ -41,9 +41,11 @@ function App() {
   // Change 8: High score
   const [highScore, setHighScore] = useState(() => {
     const saved = localStorage.getItem('flappyBirdHighScore');
-    const [showJumpEffect, setShowJumpEffect] = useState(false);
     return saved ? parseInt(saved) : 0;
   });
+
+  // Change 9: Jump effect
+  const [showJumpEffect, setShowJumpEffect] = useState(false);
   
   const obstacleIdCounter = useRef(0);
   const passedObstacles = useRef(new Set());
@@ -267,7 +269,7 @@ function App() {
           />
         ))}
 
-{gameStarted && (
+        {gameStarted && (
           <div
             className="player"
             style={{
@@ -280,7 +282,9 @@ function App() {
             <div className="beak"></div>
           </div>
         )}
-{showJumpEffect && gameStarted && (
+
+        {/* Change 9: Jump effect */}
+        {showJumpEffect && gameStarted && (
           <div
             className="jump-puff"
             style={{
@@ -301,22 +305,6 @@ function App() {
                 top: 0
               }}
             >
-              <div className="pipe-cap"></div>
-            </div>
-            
-            <div
-              className="obstacle obstacle-bottom"
-              style={{
-                width: OBSTACLE_WIDTH + 'px',
-                height: (GAME_HEIGHT - obstacle.gapY - GAP_SIZE) + 'px',
-                left: obstacle.x + 'px',
-                top: (obstacle.gapY + GAP_SIZE) + 'px'
-              }}
-            >
-              <div className="pipe-cap"></div>
-            </div>
-          </React.Fragment>
-        ))}
               <div className="pipe-cap"></div>
             </div>
             
