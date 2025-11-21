@@ -4,14 +4,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 function App() {
-  // Constants - moved inside component
+  // Constants - moved inside component with adjusted physics
   const GAME_WIDTH = 800;
   const GAME_HEIGHT = 500;
   const PLAYER_SIZE = 40;
   const OBSTACLE_WIDTH = 60;
-  const GAP_SIZE = 180;
-  const GRAVITY = 0.6;
-  const JUMP_STRENGTH = -12;
+  const GAP_SIZE = 200; // CHANGED from 180 to 200 (wider gap)
+  const GRAVITY = 0.5; // CHANGED from 0.6 to 0.5 (slower fall)
+  const JUMP_STRENGTH = -10; // CHANGED from -12 to -10 (gentler jump)
   const HORIZONTAL_SPEED = 8;
 
   // State declarations
@@ -35,8 +35,8 @@ function App() {
   // Change 6: Animated background
   const [bgColorIndex, setBgColorIndex] = useState(0);
   
-  // Change 7: Difficulty progression
-  const [obstacleSpeed, setObstacleSpeed] = useState(3);
+  // Change 7: Difficulty progression (slower start)
+  const [obstacleSpeed, setObstacleSpeed] = useState(2.5); // CHANGED from 3 to 2.5
   
   // Change 8: High score
   const [highScore, setHighScore] = useState(() => {
@@ -58,7 +58,7 @@ function App() {
     setScore(0);
     setVelocity(0);
     setObstacles([]);
-    setObstacleSpeed(3);
+    setObstacleSpeed(2.5); // CHANGED from 3 to 2.5
     setBgColorIndex(0);
     passedObstacles.current = new Set();
     obstacleIdCounter.current = 0;
@@ -123,7 +123,7 @@ function App() {
     return () => clearInterval(interval);
   }, [gameStarted, gameOver, velocity, GRAVITY, GAME_HEIGHT, PLAYER_SIZE]);
 
-  // Generate obstacles
+  // Generate obstacles (slower spawn rate)
   useEffect(() => {
     if (!gameStarted || gameOver) return;
 
@@ -136,7 +136,7 @@ function App() {
         gapY: gapPosition,
         passed: false
       }]);
-    }, 2000);
+    }, 2500); // CHANGED from 2000 to 2500 (more time between obstacles)
 
     return () => clearInterval(interval);
   }, [gameStarted, gameOver, GAME_HEIGHT, GAME_WIDTH, GAP_SIZE]);
@@ -203,12 +203,12 @@ function App() {
     return () => clearInterval(interval);
   }, [gameStarted, gameOver, GAME_WIDTH]);
 
-  // Change 3: Move ground
+  // Change 3: Move ground (adjusted speed)
   useEffect(() => {
     if (!gameStarted || gameOver) return;
 
     const interval = setInterval(() => {
-      setGroundX(prev => (prev - 3) % 100);
+      setGroundX(prev => (prev - 2.5) % 100); // CHANGED from 3 to 2.5
     }, 20);
 
     return () => clearInterval(interval);
@@ -225,9 +225,9 @@ function App() {
     return () => clearInterval(interval);
   }, [gameStarted, gameOver]);
 
-  // Change 7: Increase difficulty
+  // Change 7: Increase difficulty (more gradual)
   useEffect(() => {
-    const newSpeed = 3 + Math.floor(score / 10) * 0.5;
+    const newSpeed = 2.5 + Math.floor(score / 15) * 0.3; // More gradual increase
     setObstacleSpeed(newSpeed);
   }, [score]);
 
