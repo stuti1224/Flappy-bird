@@ -307,3 +307,16 @@
     opacity: 0;
   }
 }
+
+.medal-display {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 10px;
+}
+
+.medal-emoji {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 10px;
+}
